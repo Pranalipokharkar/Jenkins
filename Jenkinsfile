@@ -6,20 +6,22 @@ pipeline {
             steps {
                 checkout scm
             }
-            
+        }
+        
         stage('Stage1') {
             steps {
                 echo "Welcome to stage1"
             }
         }
-            
-        stage( 'Stage2' ) {
+        
+        stage('Stage2') {
             steps {
                 echo "Welcome to stage2"
             }
         }
     }
-     post {
+
+    post {
         // Steps to run at the end of the pipeline
         success {
             echo 'Pipeline completed successfully!'
@@ -29,3 +31,4 @@ pipeline {
         }
     }
 }
+
