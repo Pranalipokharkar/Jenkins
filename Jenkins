@@ -1,16 +1,1 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Build1') {
-            steps {
-                echo 'Hello World'
-            }
-        }
-            
-        stage( 'Build2' ) {
-            steps {
-                echo "Hello"
-            }
-            
-        }
+echo "Welcome To Jenkins"
