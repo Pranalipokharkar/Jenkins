@@ -14,11 +14,6 @@ pipeline {
             }
         }
         
-        stage('Stage2') {
-            steps {
-                echo "Welcome to stage2"
-            }
-        }
     }
 
     post {
