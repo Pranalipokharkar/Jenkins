@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Pranalipokharkar/Jenkins.git', branch: 'main'
+            }
+            
         stage('Stage1') {
             steps {
                 echo "Welcome to stage1"
