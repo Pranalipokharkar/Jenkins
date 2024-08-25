@@ -1,29 +1,40 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = "pranali2482/myimage:${BUILD_NUMBER}"
+        REGISTRY_CREDENTIALS = credentials('docker-cred')
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
+                // Assuming you're using Git
                 checkout scm
             }
         }
-        
-        stage('Stage1') {
+
+        stage('Build Docker Image') {
             steps {
-                echo "Welcome to stage1"
+                script {
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                }
             }
         }
-        
-    }
 
-    post {
-        // Steps to run at the end of the pipeline
-        success {
-            echo 'Pipeline completed successfully!'
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    def dockerImage = docker.image("${DOCKER_IMAGE}")
+                    docker.withRegistry('https://index.docker.io/v1/', "${REGISTRY_CREDENTIALS}") {
+                        dockerImage.push()
+                    }
+                }
+            }
         }
-        failure {
-            echo 'Pipeline failed.'
-        }
+
     }
+ }
+
+   
 }
-
